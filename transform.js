@@ -6,12 +6,12 @@ const
 
 module.exports = (config, info) => {
   const c = config.dockerCompose = config.dockerCompose || {};
-  if (!Array.isArray(c.dockerCompose.files)) {
-    c.dockerCompose.files = [];
+  if (!Array.isArray(c.files)) {
+    c.files = [];
   }
   const dockerComposeFilePath = path.resolve(info.dir, c.fileName || 'docker-compose.yml');
   if (fs.existsSync(dockerComposeFilePath)) {
-    c.dockerCompose.files.push(dockerComposeFilePath);
+    c.files.push(dockerComposeFilePath);
   }
   return config;
 };
