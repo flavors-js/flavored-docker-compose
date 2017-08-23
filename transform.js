@@ -9,7 +9,7 @@ module.exports = (config, info) => {
   if (!Array.isArray(c.files)) {
     c.files = [];
   }
-  const dockerComposeFilePath = path.resolve(info.dir, c.fileName || 'docker-compose.yml');
+  const dockerComposeFilePath = path.resolve(info.currentConfig.dir, c.fileName || 'docker-compose.yml');
   if (fs.existsSync(dockerComposeFilePath)) {
     c.files.push(dockerComposeFilePath);
   }

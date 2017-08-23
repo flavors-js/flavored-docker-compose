@@ -2,10 +2,10 @@
 
 module.exports = {
   command: config => {
-    const c = config.dockerCompose;
+    const c = config.dockerCompose || {};
     const args = [];
     if (c.projectName) {
-      args.push('-p', c.dockerCompose.projectName);
+      args.push('-p', c.projectName);
     }
     if (c.files) {
       for (let f of c.files) {
