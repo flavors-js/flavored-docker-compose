@@ -43,7 +43,6 @@
     "semantic-release-cli": "^3.0.3"
   },
   "peerDependencies": {
-    "flavors": "^2.2.0",
-    "flavors-cli": "^1.2.0"
+    "flavors-cli": "^1.2.1"
   }
 }
