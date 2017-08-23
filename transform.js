@@ -5,10 +5,7 @@ const
   path = require('path');
 
 module.exports = (config, info) => {
-  const c = config.dockerCompose;
-  if (!c.dockerCompose) {
-    c.dockerCompose = {};
-  }
+  const c = config.dockerCompose = config.dockerCompose || {};
   if (!Array.isArray(c.dockerCompose.files)) {
     c.dockerCompose.files = [];
   }
@@ -16,5 +13,5 @@ module.exports = (config, info) => {
   if (fs.existsSync(dockerComposeFilePath)) {
     c.dockerCompose.files.push(dockerComposeFilePath);
   }
-  return c;
+  return config;
 };
