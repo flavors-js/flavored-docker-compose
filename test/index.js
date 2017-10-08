@@ -15,11 +15,14 @@ describe('flavored-docker-compose', () => {
     const tp = (...names) => {
       return testPath('collectsFilesWithExtends', ...names);
     };
-    assert.deepEqual(require('flavors')('b-c', {transform: require('../transform'), workingDir: tp()}).dockerCompose.files, [
-      tp(dockerComposeYml),
-      tp('a', dockerComposeYml),
-      tp('b', dockerComposeYml),
-      tp('b', 'c', dockerComposeYml)
-    ]);
+    assert.deepEqual(
+      require('flavors-plugin-loader-config')({ configName: 'b-c', workingDir: tp() })(require('..'))
+        .config.dockerCompose.files,
+      [
+        tp(dockerComposeYml),
+        tp('a', dockerComposeYml),
+        tp('b', dockerComposeYml),
+        tp('b', 'c', dockerComposeYml)
+      ]);
   });
 });
