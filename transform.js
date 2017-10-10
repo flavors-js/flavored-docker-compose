@@ -5,13 +5,15 @@ const
   path = require('path');
 
 module.exports = (config, info) => {
-  const c = config.dockerCompose = config.dockerCompose || {};
-  if (!Array.isArray(c.files)) {
-    c.files = [];
-  }
+  const c = config.dockerCompose || {};
+  const files = c.files || [];
   const dockerComposeFilePath = path.resolve(info.currentConfig.dir, c.fileName || 'docker-compose.yml');
   if (fs.existsSync(dockerComposeFilePath)) {
-    c.files.push(dockerComposeFilePath);
+    files.push(dockerComposeFilePath);
+  }
+  if (files.length > 0) {
+    c.files = files;
+    config.dockerCompose = c;
   }
   return config;
 };
