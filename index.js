@@ -13,11 +13,20 @@ module.exports = {
       }
     }
     return {
-      args: args,
+      args,
       command: c.command || 'docker-compose'
     };
   },
   options: {
+    merge: (x, y) => {
+      const getFiles = v => ((v.dockerCompose || {}).files || []);
+      const files = [...new Set([...getFiles(x), ...getFiles(y)])];
+      return {
+        dockerCompose: {
+          files
+        }
+      };
+    },
     transform: require('./transform')
   }
 };

@@ -21,6 +21,7 @@ describe('flavored-docker-compose', () => {
       [
         tp(dockerComposeYml),
         tp('a', dockerComposeYml),
+        tp('a', 'd', dockerComposeYml),
         tp('b', dockerComposeYml),
         tp('b', 'c', dockerComposeYml)
       ]);
