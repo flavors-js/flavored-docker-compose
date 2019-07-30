@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 'use strict';
 
 module.exports = {
@@ -17,16 +18,26 @@ module.exports = {
       command: c.command || 'docker-compose'
     };
   },
-  options: {
+  options: options => ({
     merge: (x, y) => {
+      const merge = options.merge || require('flavors').defaultOptions.merge;
+      const result = merge(x, y);
       const getFiles = v => ((v.dockerCompose || {}).files || []);
       const files = [...new Set([...getFiles(x), ...getFiles(y)])];
-      return {
-        dockerCompose: {
-          files
+      if (files) {
+        if (!result.dockerCompose) {
+          result.dockerCompose = {};
         }
-      };
+        result.dockerCompose.files = files;
+      }
+      return result;
     },
     transform: require('./transform')
-  }
+  })
 };
+
+if (require.main === module) {
+  process.argv = [...process.argv.slice(0, 2), 'run', '-p', __dirname, ...process.argv.slice(2)];
+  // console.error(process.argv);
+  require('flavors/cli')();
+}
