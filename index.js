@@ -38,6 +38,5 @@ module.exports = {
 
 if (require.main === module) {
   process.argv = [...process.argv.slice(0, 2), 'run', '-p', __dirname, ...process.argv.slice(2)];
-  // console.error(process.argv);
   require('flavors/cli')();
 }
